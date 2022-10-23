@@ -8,18 +8,19 @@ import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("api/usuarios")
-public class UsuarioRestController {
+@RequestMapping("api/")
+public class InicioRestController {
 
     @Getter
     @Setter
@@ -41,25 +42,8 @@ public class UsuarioRestController {
     @Autowired
     private ProfesorServicio profesorServicio;
 
-    @GetMapping
-    public List<Usuario> listar() throws ExecutionException, InterruptedException {
-        return usuarioServicio.listarUsuarios();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> obtener(@PathVariable("id") String idUsuario) {
-        try {
-            Usuario usuario = usuarioServicio.obtenerUsuario(idUsuario);
-            return ResponseEntity.status(200).body(usuario);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
-        }
-    }
-
     @PostMapping
-    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario){
-
-
+    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario){ 
         if (rol.equals("Estudiante")) {
             try {
                 usuario.setFechaNacimiento(localDate.toString());
@@ -98,34 +82,4 @@ public class UsuarioRestController {
             }
         }
     }
-
-    @PutMapping
-    public ResponseEntity<?> actualizar(@RequestBody Usuario usuario) {
-        try {
-            usuarioServicio.actualizarUsuario(usuario);
-            return ResponseEntity.status(200).body(new Mensaje("El usuario se actualizó correctamente"));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
-        }
-    }
-
-    @DeleteMapping("/{codigo}")
-    public ResponseEntity<?> eliminar (@PathVariable("codigo") String codigo) {
-        try {
-            usuarioServicio.eliminarUsuario(codigo);
-            return ResponseEntity.status(200).body(new Mensaje("El usuario se eliminó exitosamente"));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
-        }
-    }
-
-   /* @GetMapping("/favoritos/{codigo}")
-    public ResponseEntity<?> obtenerFavoritos(@PathVariable("codigo") String codigo){
-        try {
-            List<Producto> lista = usuarioServicio.listarFavoritos(codigo);
-            return ResponseEntity.status(200).body(lista);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Mensaje("Error al obtener la lista"));
-        }
-    }*/
 }
