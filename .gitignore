@@ -1,0 +1,36 @@
+HELP.md
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+#Archivos compilados
+*.class
+
+#Archivos de Intellij
+/.idea
+
+#Ignora archis del sistema Mac
+.DS_store
+/negocio1
