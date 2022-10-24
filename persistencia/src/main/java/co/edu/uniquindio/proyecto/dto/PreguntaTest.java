@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.dto;
 
 import lombok.*;
 
+//Clase usada para contener los datos de una pregunta del test sin  incluir las respuestas.
 @AllArgsConstructor
 @Getter
 @Setter
